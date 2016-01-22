@@ -1,11 +1,8 @@
 {  
   "configurationSettings":[  
-    {  
-      "category":"<b>Configure template</b>",
+    {
+      "category":"<b>Configure Maptiks</b>",
       "fields":[  
-        {  
-          "type":"webmap"
-        },
         {
           "type": "string",
           "fieldName": "maptiks_trackcode",
@@ -17,6 +14,14 @@
           "fieldName": "maptiks_id",
           "label": "Maptiks Map Name",
           "tooltip": "Enter a name for your map"
+        }
+      ]
+    },
+    {  
+      "category":"<b>Configure template</b>",
+      "fields":[  
+        {  
+          "type":"webmap"
         }
       ]
     }
