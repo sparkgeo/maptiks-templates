@@ -6,32 +6,17 @@
         {  
           "type":"webmap"
         },
-        {  
-          "placeHolder":"Defaults to map owner",
-          "label":"Owner Text:",
-          "fieldName":"owner",
-          "type":"string",
-          "tooltip":"Defaults to map owner"
+        {
+          "type": "string",
+          "fieldName": "maptiks_trackcode",
+          "label": "Maptiks Trackcode",
+          "tooltip": "Enter your Maptiks Tracking Code that you got from analytics.maptiks.com"
         },
-        {  
-          "type":"string",
-          "fieldName":"theme",
-          "tooltip":"Color theme to use",
-          "label":"Color Scheme:",
-          "options":[  
-            {  
-              "label":"Chrome",
-              "value":"chrome"
-            },
-            {  
-              "label":"Seaside",
-              "value":"seaside"
-            },
-            {  
-              "label":"Pavement",
-              "value":"pavement"
-            }
-          ]
+        {
+          "type": "string",
+          "fieldName": "maptiks_id",
+          "label": "Maptiks Map Name",
+          "tooltip": "Enter a name for your map"
         }
       ]
     }

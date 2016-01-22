@@ -16,6 +16,8 @@
  | limitations under the License.
  */
 define([
+  "maptiks/map",
+
   "dojo/_base/declare",
   "dojo/_base/lang",
 
@@ -30,6 +32,7 @@ define([
 
   "dojo/domReady!"
 ], function (
+  Map,
   declare, lang,
   Deferred,
   dom, domClass,
@@ -102,7 +105,7 @@ define([
       // Optionally define additional map config here for example you can
       // turn the slider off, display info windows, disable wraparound 180,
       // slider position and more.
-      return arcgisUtils.createMap(itemInfo, "mapDiv", {
+      return arcgisUtils.createMap(itemInfo.item.id, "noShow", {
         mapOptions: params.mapOptions || {},
         usePopupManager: true,
         layerMixins: this.config.layerMixins || [],
@@ -113,37 +116,70 @@ define([
         // such as the map, operational layers, popup info and more. This object will also contain
         // any custom options you defined for the template. In this example that is the 'theme' property.
         // Here' we'll use it to update the application to match the specified color theme.
-        // console.log(this.config);
-        this.map = response.map;
+
+        var center = response.map.extent.getCenter();
+
+        var maptiksMapOptions = {
+          center: [center.getLongitude(), center.getLatitude()],
+          zoom: response.map.getZoom(),
+          basemap: 'streets',
+
+          // ENTER TRACKING CODE HERE
+          maptiks_trackcode: this.config.maptiks_trackcode,
+
+          // ENTER THE MAP'S NAME HERE (USER DEFINED)
+          maptiks_id: this.config.maptiks_id,
+        };
+        // console.log("maptiksMapOptions", maptiksMapOptions);
+
+        lang.mixin(maptiksMapOptions, params.mapOptions);
+
+        var maptiksMap = new Map('mapDiv', maptiksMapOptions);
+
+        //Add ALL layers
+        // for (var i=0; i<response.map.layerIds.length; i++) {
+        //   var layer = response.map.getLayer(response.map.layerIds[i]);
+        //   maptiksMap.addLayer(layer);
+        // }
+
+        // Add visible layers
+        var arcGISLayers = response.map.getLayersVisibleAtScale();
+        for (var i = 0; i < arcGISLayers.length; i++) {
+          maptiksMap.addLayer(arcGISLayers[i]);
+        }
+
+        this.map = maptiksMap;
+
         // remove loading class from body
         domClass.remove(document.body, "app-loading");
         // Start writing code
         /* ---------------------------------------- */
         /*  Map is ready. Start writing code        */
         /* ---------------------------------------- */
-        console.log("Hello World!");
-        console.log("My Map:", this.map);
-        console.log("My Config:", this.config);
+        console.log("this.map:", this.map);
+        console.log("this.config:", this.config);
+
+        // this.map.maptiks_trackcode = this.config.maptiks_trackcode;
 
 
-          if(params.markerGraphic){
-            // Add a marker graphic with an optional info window if
-            // one was specified via the marker url parameter
-            require(["esri/layers/GraphicsLayer"], lang.hitch(this, function(GraphicsLayer){
-              var markerLayer = new GraphicsLayer();
+        if(params.markerGraphic){
+          // Add a marker graphic with an optional info window if
+          // one was specified via the marker url parameter
+          require(["esri/layers/GraphicsLayer"], lang.hitch(this, function(GraphicsLayer){
+            var markerLayer = new GraphicsLayer();
 
-              this.map.addLayer(markerLayer);
-              markerLayer.add(params.markerGraphic);
+            this.map.addLayer(markerLayer);
+            markerLayer.add(params.markerGraphic);
 
-              if(params.markerGraphic.infoTemplate){
-                this.map.infoWindow.setFeatures([params.markerGraphic]);
-                this.map.infoWindow.show(params.markerGraphic.geometry);
-              }
+            if(params.markerGraphic.infoTemplate){
+              this.map.infoWindow.setFeatures([params.markerGraphic]);
+              this.map.infoWindow.show(params.markerGraphic.geometry);
+            }
 
-              this.map.centerAt(params.markerGraphic.geometry);
-            }));
+            this.map.centerAt(params.markerGraphic.geometry);
+          }));
 
-          }
+        }
 
         /* ---------------------------------------- */
         /*                                          */
