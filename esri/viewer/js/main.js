@@ -1057,7 +1057,7 @@ define([
                 layerMixins: this.config.layerMixins,
                 bingMapsKey: this.config.bingKey
             }).then(lang.hitch(this, function (response) {
-// console.log(mapOptions);
+
                 domConstruct.destroy("noShow");
 
                 var center = response.map.extent.getCenter();
@@ -1069,7 +1069,7 @@ define([
                   maptiks_trackcode: this.config.maptiks_trackcode,
                   maptiks_id: this.config.maptiks_id,
                 };
-                // lang.mixin(maptiksMapOptions, mapOptions);
+                lang.mixin(maptiksMapOptions, mapOptions);
 
                 var maptiksMap = new Map('mapDiv', maptiksMapOptions);
 
