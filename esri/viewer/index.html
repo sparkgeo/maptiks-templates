@@ -10,6 +10,9 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="shortcut icon" href="/img/favicon.png">
+
     <!-- End Responsive -->
     <!-- Use protocol relative urls that way if the browser is viewing the page via HTTPS the js/css file will be requested using the HTTPS protocol -->
     <link rel="stylesheet" href="//js.arcgis.com/3.15/esri/css/calcite/calcite.css">
@@ -41,6 +44,7 @@
     <!-- Map -->
     <!-- The ArcGIS API for JavaScript provides bidirectional support.  When viewing the application in an right to left (rtl) language like Hebrew and Arabic the map needs to remain in left-to-right (ltr) mode. Specify this by setting the dir attribute on the div to ltr. -->
     <div id="mapDiv" dir="ltr"></div>
+    <div id="noShow" dir="ltr"></div>
 
     <!-- Panel Content -->
 
@@ -98,7 +102,8 @@
             },{
                 name: "arcgis_templates",
                 location: package_path + '/..'
-            }]
+            }],
+            paths: { maptiks: 'https://cdn.maptiks.com/esri3' }
          };
       // Have to handle a locale parameter before dojo is loaded
         var locale = getQueryVariable("locale");
