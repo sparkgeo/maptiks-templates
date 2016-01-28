@@ -25,6 +25,7 @@ define([
 
   "dojo/dom",
   "dojo/dom-class",
+  "dojo/dom-construct", 
 
   "esri/arcgis/utils",
 
@@ -35,7 +36,7 @@ define([
   Map,
   declare, lang,
   Deferred,
-  dom, domClass,
+  dom, domClass, domConstruct,
   arcgisUtils,
   MapUrlParams
 ) {
@@ -117,30 +118,23 @@ define([
         // any custom options you defined for the template. In this example that is the 'theme' property.
         // Here' we'll use it to update the application to match the specified color theme.
 
+        // *******************************************
+        // **** Maptiks Changes below
+        // *******************************************
+        domConstruct.destroy("noShow");
+
         var center = response.map.extent.getCenter();
 
         var maptiksMapOptions = {
           center: [center.getLongitude(), center.getLatitude()],
           zoom: response.map.getZoom(),
           basemap: 'streets',
-
-          // ENTER TRACKING CODE HERE
           maptiks_trackcode: this.config.maptiks_trackcode,
-
-          // ENTER THE MAP'S NAME HERE (USER DEFINED)
           maptiks_id: this.config.maptiks_id,
         };
-        // console.log("maptiksMapOptions", maptiksMapOptions);
-
         lang.mixin(maptiksMapOptions, params.mapOptions);
 
         var maptiksMap = new Map('mapDiv', maptiksMapOptions);
-
-        //Add ALL layers
-        // for (var i=0; i<response.map.layerIds.length; i++) {
-        //   var layer = response.map.getLayer(response.map.layerIds[i]);
-        //   maptiksMap.addLayer(layer);
-        // }
 
         // Add visible layers
         var arcGISLayers = response.map.getLayersVisibleAtScale();
@@ -148,7 +142,19 @@ define([
           maptiksMap.addLayer(arcGISLayers[i]);
         }
 
+        maptiksMap.on("update-end", lang.hitch(this, function (args) {
+            var map = args.target;
+            var basemapLayerId = map.basemapLayerIds[0];
+            var basemapLayer = map.getLayer(basemapLayerId);
+            if (basemapLayer) {
+                map.removeLayer(basemapLayer);
+            }
+        }));
+
         this.map = maptiksMap;
+        // *******************************************
+        // **** Maptiks Changes done
+        // *******************************************
 
         // remove loading class from body
         domClass.remove(document.body, "app-loading");
@@ -156,11 +162,6 @@ define([
         /* ---------------------------------------- */
         /*  Map is ready. Start writing code        */
         /* ---------------------------------------- */
-        console.log("this.map:", this.map);
-        console.log("this.config:", this.config);
-
-        // this.map.maptiks_trackcode = this.config.maptiks_trackcode;
-
 
         if(params.markerGraphic){
           // Add a marker graphic with an optional info window if

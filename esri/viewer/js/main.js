@@ -1058,6 +1058,9 @@ define([
                 bingMapsKey: this.config.bingKey
             }).then(lang.hitch(this, function (response) {
 
+                // *******************************************
+                // **** Maptiks Changes below
+                // *******************************************
                 domConstruct.destroy("noShow");
 
                 var center = response.map.extent.getCenter();
@@ -1073,10 +1076,10 @@ define([
 
                 var maptiksMap = new Map('mapDiv', maptiksMapOptions);
 
-                //Add ALL layers in the response from ArcGIS
-                for (var i=0; i<response.map.layerIds.length; i++) {
-                  var layer = response.map.getLayer(response.map.layerIds[i]);
-                  maptiksMap.addLayer(layer);   //start tracking this layer
+                // Add visible layers
+                var arcGISLayers = response.map.getLayersVisibleAtScale();
+                for (var i = 0; i < arcGISLayers.length; i++) {
+                  maptiksMap.addLayer(arcGISLayers[i]);
                 }
 
                 maptiksMap.on("update-end", lang.hitch(this, function (args) {
@@ -1089,6 +1092,9 @@ define([
                 }));
 
                 this.map = maptiksMap;
+                // *******************************************
+                // **** Maptiks Changes done
+                // *******************************************
             
                 domClass.add(this.map.infoWindow.domNode, "light");
 
