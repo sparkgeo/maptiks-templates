@@ -569,10 +569,10 @@ define([
             var deferred = new Deferred();
 
             if (has("overview")) {
-                var ovMapDiv = toolbar.createTool(tool, panelClass);
+                this.ovMapDiv = toolbar.createTool(tool, panelClass);
 
 
-                domStyle.set(ovMapDiv, {
+                domStyle.set(this.ovMapDiv, {
                     "height": "100%",
                     "width": "100%"
                 });
@@ -588,7 +588,7 @@ define([
                     id: "overviewMap",
                     map: this.map,
                     height: panelHeight
-                }, domConstruct.create("div", {}, ovMapDiv));
+                }, domConstruct.create("div", {}, this.ovMapDiv));
 
                 ovMap.startup();
 
@@ -601,7 +601,7 @@ define([
                             map: this.map,
                             height: panelHeight,
                             visible: false
-                        }, domConstruct.create("div", {}, ovMapDiv));
+                        }, domConstruct.create("div", {}, this.ovMapDiv));
 
                         ovMap.startup();
                     }
@@ -1088,6 +1088,20 @@ define([
                     var basemapLayer = map.getLayer(basemapLayerId);
                     if (basemapLayer) {
                         map.removeLayer(basemapLayer);
+                        
+                        //set the overview map
+                        var ovMap = registry.byId("overviewMap");
+                        var ovMapHeight = ovMap.height;
+
+                        ovMap.destroy();
+                        ovMap = new OverviewMap({
+                            id: "overviewMap",
+                            map: maptiksMap,
+                            height: ovMapHeight,
+                            visible: false
+                        }, domConstruct.create("div", {}, this.ovMapDiv));
+
+                        ovMap.startup();
                     }
                 }));
 
