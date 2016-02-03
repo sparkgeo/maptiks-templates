@@ -584,7 +584,7 @@ console.log("app", app);
               zoom: response.map.getZoom(),
               basemap: 'streets',
               maptiks_trackcode: '', //this.config.maptiks_trackcode,
-              maptiks_id: '', //this.config.maptiks_id
+              maptiks_id: '' //this.config.maptiks_id
             };
             // lang.mixin(maptiksMapOptions, mapOptions);
 
