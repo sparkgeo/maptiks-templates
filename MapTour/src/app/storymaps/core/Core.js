@@ -578,13 +578,13 @@ define(["maptiks/map",
             domConstruct.destroy("noShow");
 
             var center = response.map.extent.getCenter();
-
+console.log("app", app);
             var maptiksMapOptions = {
               center: [center.getLongitude(), center.getLatitude()],
               zoom: response.map.getZoom(),
               basemap: 'streets',
-              maptiks_trackcode: this.config.maptiks_trackcode,
-              maptiks_id: this.config.maptiks_id
+              maptiks_trackcode: '', //this.config.maptiks_trackcode,
+              maptiks_id: '', //this.config.maptiks_id
             };
             // lang.mixin(maptiksMapOptions, mapOptions);
 
