@@ -14,6 +14,10 @@
              "fieldName": "maptiks_id",
              "label": "Maptiks Map Name",
              "tooltip": "Enter a name for your map"
+           },
+           {
+             "type": "paragraph",
+             "value": "If you require a tracking code, you can get one <a target=\"_blank\" href=\"https://analytics.maptiks.com/login/arcgis/?next=/\">here.</a>"
            }
          ]
       },
