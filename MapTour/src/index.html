@@ -11,6 +11,8 @@
 
 		<link type="image/ico" rel="shortcut icon" href="resources/icons/favicon.ico">
 		<link type="image/ico" rel="icon"  href="resources/icons/favicon.ico">
+
+	    <link rel="shortcut icon" href="/img/favicon.png">
 		
 		<!-- 
 			To correctly reference your Map Tour in search engine:
@@ -175,7 +177,8 @@
 						// commonConfig.js is loaded from the parent folder, otherwise it's loaded from the app folder
 						location: /(\/apps\/|\/home\/)(MapTour\/)/.test(document.location.pathname) ? path_location.substr(0,path_location.lastIndexOf('/MapTour')) : path_location.replace(/\/+$/, '') + '/app'
 					}
-				]
+				],
+				paths: { maptiks: 'https://cdn.maptiks.com/esri3' }
 			};
 			
 			if (location.search.match(/locale=([\w\-]+)/)) {

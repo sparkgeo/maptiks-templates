@@ -58,6 +58,7 @@
 				  baseUrl: "src/app/",
 					paths: {
 						'dojo': 'empty:',
+						'maptiks': 'empty:',
 						'esri': 'empty:',
 						'dijit': 'empty:',
 						'dojox': 'empty:'
@@ -71,6 +72,7 @@
 					baseUrl: "src/app/",
 					paths: {
 						'dojo': 'empty:',
+						'maptiks': 'empty:',
 						'esri': 'empty:',
 						'dijit': 'empty:',
 						'dojox': 'empty:'
