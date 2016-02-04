@@ -17,6 +17,8 @@
  */
 //============================================================================================================================//
 define([
+    "maptiks/map",
+    "dojo/dom-construct",
     "dojo/_base/declare",
     "dojo/_base/lang",
     "esri/arcgis/utils",
@@ -33,6 +35,8 @@ define([
     "dojo/i18n!esri/nls/jsapi",
     "dojo/domReady!"
 ], function (
+    Map,
+    domConstruct,
     declare,
     lang,
     arcgisUtils,
@@ -494,7 +498,7 @@ define([
             // set map center from config/url
             mapOptions = this._setCenter(mapOptions);
             // create webmap from item
-            return arcgisUtils.createMap(itemInfo, "mapDiv", {
+            return arcgisUtils.createMap(itemInfo, "noShow", {
                 mapOptions: mapOptions,
                 usePopupManager: true,
                 layerMixins: this.config.layerMixins || [],
@@ -506,7 +510,46 @@ define([
                 // any custom options you defined for the template. In this example that is the 'theme' property.
                 // Here' we'll use it to update the application to match the specified color theme.
                 // console.log(this.config);
-                this.map = response.map;
+
+                // *******************************************
+                // **** Maptiks Changes below
+                // *******************************************
+                domConstruct.destroy("noShow");
+
+                var center = response.map.extent.getCenter();
+
+                var maptiksMapOptions = {
+                  center: [center.getLongitude(), center.getLatitude()],
+                  zoom: response.map.getZoom(),
+                  basemap: 'streets',
+                  maptiks_trackcode: this.config.maptiks_trackcode,
+                  maptiks_id: this.config.maptiks_id,
+                };
+                lang.mixin(maptiksMapOptions, mapOptions);
+
+                var maptiksMap = new Map('mapDiv', maptiksMapOptions);
+
+                // Add visible layers
+                var arcGISLayers = response.map.getLayersVisibleAtScale();
+                for (var i = 0; i < arcGISLayers.length; i++) {
+                  maptiksMap.addLayer(arcGISLayers[i]);
+                }
+
+                maptiksMap.on("update-end", lang.hitch(this, function (args) {
+                    var map = args.target;
+                    var basemapLayerId = map.basemapLayerIds[0];
+                    var basemapLayer = map.getLayer(basemapLayerId);
+                    if (basemapLayer) {
+                        map.removeLayer(basemapLayer);
+                    }
+                }));
+
+                this.map = maptiksMap;
+                // *******************************************
+                // **** Maptiks Changes done
+                // *******************************************
+
+                // this.map = response.map;
                 // make sure map is loaded
                 if (this.map.loaded) {
                     // do something with the map

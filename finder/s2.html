@@ -28,6 +28,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <!-- End Responsive -->
     <meta name="fragment" content="!">
+
+    <link rel="shortcut icon" href="/img/favicon.png">
+    
     <!-- Use protocol relative urls that way if the browser is viewing the page via HTTPS the js/css file will be requested using the HTTPS protocol -->
     <link rel="stylesheet" href="//js.arcgis.com/3.15/dijit/themes/claro/claro.css">
     <link rel="stylesheet" href="//js.arcgis.com/3.15/esri/css/esri.css">
@@ -49,6 +52,7 @@
         </noscript>
         <!-- The ArcGIS API for JavaScript provides bidirectional support.  When viewing the application in an right to left (rtl) language like Hebrew and Arabic the map needs to remain in left-to-right (ltr) mode. Specify this by setting the dir attribute on the div to ltr. -->
         <div id="mapDiv" dir="ltr"></div>
+        <div id="noShow"></div>
     </div>
     <script type="text/javascript">
         var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
@@ -66,7 +70,8 @@
             }, {
                 name: "js",
                 location: package_path + '/js2'
-            }]
+            }],
+            paths: { maptiks: 'https://cdn.maptiks.com/esri3' }
         };
         var jsapi_i18n = {};
 
