@@ -15,8 +15,8 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define(["dojo/_base/declare", "dojo/has", "dojo/_base/lang", "dojo/_base/Color", "dojo/_base/array", "dojo/on", "dijit/registry", "esri/arcgis/utils", "esri/lang", "dojo/dom", "dojo/dom-attr", "dojo/dom-style", "dojo/query", "dojo/dom-construct", "dojo/dom-class", "application/Drawer", "esri/layers/FeatureLayer", "esri/dijit/editing/Editor", "esri/dijit/AttributeInspector", "esri/dijit/editing/TemplatePicker", "esri/tasks/query", "esri/domUtils", "application/SearchSources", "dojo/domReady!"], function (
-declare, has, lang, Color, array, on, registry, arcgisUtils, esriLang, dom, domAttr, domStyle, query, domConstruct, domClass, Drawer, FeatureLayer, Editor, AttributeInspector, TemplatePicker, esriQuery, domUtils, SearchSources) {
+define(["maptiks/map","dojo/_base/declare", "dojo/has", "dojo/_base/lang", "dojo/_base/Color", "dojo/_base/array", "dojo/on", "dijit/registry", "esri/arcgis/utils", "esri/lang", "dojo/dom", "dojo/dom-attr", "dojo/dom-style", "dojo/query", "dojo/dom-construct", "dojo/dom-class", "application/Drawer", "esri/layers/FeatureLayer", "esri/dijit/editing/Editor", "esri/dijit/AttributeInspector", "esri/dijit/editing/TemplatePicker", "esri/tasks/query", "esri/domUtils", "application/SearchSources", "dojo/domReady!"], function (
+Map, declare, has, lang, Color, array, on, registry, arcgisUtils, esriLang, dom, domAttr, domStyle, query, domConstruct, domClass, Drawer, FeatureLayer, Editor, AttributeInspector, TemplatePicker, esriQuery, domUtils, SearchSources) {
     return declare(null, {
         config: {},
         editor: null,
@@ -241,7 +241,7 @@ declare, has, lang, Color, array, on, registry, arcgisUtils, esriLang, dom, domA
             mapOptions = this._setLevel(mapOptions);
             mapOptions = this._setCenter(mapOptions);
 
-            arcgisUtils.createMap(itemInfo, "mapDiv", {
+            arcgisUtils.createMap(itemInfo, "noShow", {
                 mapOptions: mapOptions,
                 usePopupManager: true,
                 editable: this.config.editable,
@@ -251,7 +251,46 @@ declare, has, lang, Color, array, on, registry, arcgisUtils, esriLang, dom, domA
                 // Once the map is created we get access to the response which provides important info
                 // such as the map, operational layers, popup info and more. This object will also contain
                 // any custom options you defined for the template.
-                this.map = response.map;
+                
+                // *******************************************
+                // **** Maptiks Changes below
+                // *******************************************
+                domConstruct.destroy("noShow");
+
+                var center = response.map.extent.getCenter();
+
+                var maptiksMapOptions = {
+                  center: [center.getLongitude(), center.getLatitude()],
+                  zoom: response.map.getZoom(),
+                  basemap: 'streets',
+                  maptiks_trackcode: this.config.maptiks_trackcode,
+                  maptiks_id: this.config.maptiks_id,
+                };
+                lang.mixin(maptiksMapOptions, mapOptions);
+
+                var maptiksMap = new Map('mapDiv', maptiksMapOptions);
+
+                // Add visible layers
+                var arcGISLayers = response.map.getLayersVisibleAtScale();
+                for (var i = 0; i < arcGISLayers.length; i++) {
+                  maptiksMap.addLayer(arcGISLayers[i]);
+                }
+
+                maptiksMap.on("update-end", lang.hitch(this, function (args) {
+                    var map = args.target;
+                    var basemapLayerId = map.basemapLayerIds[0];
+                    var basemapLayer = map.getLayer(basemapLayerId);
+                    if (basemapLayer) {
+                        map.removeLayer(basemapLayer);
+                    }
+                }));
+
+                this.map = maptiksMap;
+                // *******************************************
+                // **** Maptiks Changes done
+                // *******************************************
+
+                // this.map = response.map;
                 this.config.response = response;
                 domClass.add(this.map.infoWindow.domNode, "light");
                 this.map.setInfoWindowOnClick(false);
