@@ -1063,47 +1063,25 @@ define([
                 // *******************************************
                 domConstruct.destroy("noShow");
 
-                var center = response.map.extent.getCenter();
-
                 var maptiksMapOptions = {
-                  center: [center.getLongitude(), center.getLatitude()],
-                  zoom: response.map.getZoom(),
-                  basemap: 'streets',
+                  extent: response.map.extent,
                   maptiks_trackcode: this.config.maptiks_trackcode,
                   maptiks_id: this.config.maptiks_id,
                 };
-                lang.mixin(maptiksMapOptions, mapOptions);
 
                 var maptiksMap = new Map('mapDiv', maptiksMapOptions);
+                
+                //for some reason, we need to suspend/resume the Graphics Layers
+                maptiksMap.on("layer-add", lang.hitch(this, function (args) {
+                    args.layer.suspend();
+                    args.layer.resume();
+                }));
 
                 // Add visible layers
                 var arcGISLayers = response.map.getLayersVisibleAtScale();
                 for (var i = 0; i < arcGISLayers.length; i++) {
-                  maptiksMap.addLayer(arcGISLayers[i]);
+                    maptiksMap.addLayer(arcGISLayers[i]);
                 }
-
-                maptiksMap.on("update-end", lang.hitch(this, function (args) {
-                    var map = args.target;
-                    var basemapLayerId = map.basemapLayerIds[0];
-                    var basemapLayer = map.getLayer(basemapLayerId);
-                    if (basemapLayer) {
-                        map.removeLayer(basemapLayer);
-                        
-                        //set the overview map
-                        var ovMap = registry.byId("overviewMap");
-                        var ovMapHeight = ovMap.height;
-
-                        ovMap.destroy();
-                        ovMap = new OverviewMap({
-                            id: "overviewMap",
-                            map: maptiksMap,
-                            height: ovMapHeight,
-                            visible: false
-                        }, domConstruct.create("div", {}, this.ovMapDiv));
-
-                        ovMap.startup();
-                    }
-                }));
 
                 this.map = maptiksMap;
                 // *******************************************

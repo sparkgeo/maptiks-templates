@@ -207,33 +207,25 @@ Map, ready, declare, dom, Color, query, lang, array, domConstruct, registry, has
                 // *******************************************
                 domConstruct.destroy("noShow");
 
-                var center = response.map.extent.getCenter();
-
                 var maptiksMapOptions = {
-                  center: [center.getLongitude(), center.getLatitude()],
-                  zoom: response.map.getZoom(),
-                  basemap: 'streets',
+                  extent: response.map.extent,
                   maptiks_trackcode: this.config.maptiks_trackcode,
                   maptiks_id: this.config.maptiks_id,
                 };
-                lang.mixin(maptiksMapOptions, mapOptions);
 
                 var maptiksMap = new Map('mapDiv', maptiksMapOptions);
+                
+                //for some reason, we need to suspend/resume the Graphics Layers
+                maptiksMap.on("layer-add", lang.hitch(this, function (args) {
+                    args.layer.suspend();
+                    args.layer.resume();
+                }));
 
                 // Add visible layers
                 var arcGISLayers = response.map.getLayersVisibleAtScale();
                 for (var i = 0; i < arcGISLayers.length; i++) {
-                  maptiksMap.addLayer(arcGISLayers[i]);
+                    maptiksMap.addLayer(arcGISLayers[i]);
                 }
-
-                maptiksMap.on("update-end", lang.hitch(this, function (args) {
-                    var map = args.target;
-                    var basemapLayerId = map.basemapLayerIds[0];
-                    var basemapLayer = map.getLayer(basemapLayerId);
-                    if (basemapLayer) {
-                        map.removeLayer(basemapLayer);
-                    }
-                }));
 
                 this.map = maptiksMap;
                 // *******************************************
