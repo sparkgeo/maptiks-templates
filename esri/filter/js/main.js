@@ -1,5 +1,5 @@
-define(["dojo/ready", "dojo/_base/declare", "dojo/dom", "dojo/_base/Color", "dojo/query", "dojo/_base/lang", "dojo/_base/array", "dojo/dom-construct", "dijit/registry", "dojo/has", "dojo/sniff", "esri/arcgis/utils", "esri/lang", "dojo/on", "application/Drawer", "application/Filter", "dojo/dom-class", "esri/tasks/query", "esri/tasks/QueryTask", "esri/layers/FeatureLayer", "esri/dijit/LocateButton", "esri/dijit/HomeButton"], function (
-ready, declare, dom, Color, query, lang, array, domConstruct, registry, has, sniff, arcgisUtils, esriLang, on, Drawer, Filter, domClass, esriQuery, QueryTask, FeatureLayer, LocateButton, HomeButton) {
+define(["maptiks/map","dojo/ready", "dojo/_base/declare", "dojo/dom", "dojo/_base/Color", "dojo/query", "dojo/_base/lang", "dojo/_base/array", "dojo/dom-construct", "dijit/registry", "dojo/has", "dojo/sniff", "esri/arcgis/utils", "esri/lang", "dojo/on", "application/Drawer", "application/Filter", "dojo/dom-class", "esri/tasks/query", "esri/tasks/QueryTask", "esri/layers/FeatureLayer", "esri/dijit/LocateButton", "esri/dijit/HomeButton"], function (
+Map, ready, declare, dom, Color, query, lang, array, domConstruct, registry, has, sniff, arcgisUtils, esriLang, on, Drawer, Filter, domClass, esriQuery, QueryTask, FeatureLayer, LocateButton, HomeButton) {
     return declare("", null, {
         config: {},
         theme: null,
@@ -194,7 +194,7 @@ ready, declare, dom, Color, query, lang, array, domConstruct, registry, has, sni
             var mapOptions = {};
             mapOptions = this._setLevel(mapOptions);
             mapOptions = this._setCenter(mapOptions);
-            arcgisUtils.createMap(itemInfo, "mapDiv", {
+            arcgisUtils.createMap(itemInfo, "noShow", {
                 mapOptions: mapOptions,
                 editable: false,
                 layerMixins: this.config.layerMixins || [],
@@ -202,7 +202,45 @@ ready, declare, dom, Color, query, lang, array, domConstruct, registry, has, sni
                 bingMapsKey: this.config.bingmapskey
             }).then(lang.hitch(this, function (response) {
 
-                this.map = response.map;
+                // *******************************************
+                // **** Maptiks Changes below
+                // *******************************************
+                domConstruct.destroy("noShow");
+
+                var center = response.map.extent.getCenter();
+
+                var maptiksMapOptions = {
+                  center: [center.getLongitude(), center.getLatitude()],
+                  zoom: response.map.getZoom(),
+                  basemap: 'streets',
+                  maptiks_trackcode: this.config.maptiks_trackcode,
+                  maptiks_id: this.config.maptiks_id,
+                };
+                lang.mixin(maptiksMapOptions, mapOptions);
+
+                var maptiksMap = new Map('mapDiv', maptiksMapOptions);
+
+                // Add visible layers
+                var arcGISLayers = response.map.getLayersVisibleAtScale();
+                for (var i = 0; i < arcGISLayers.length; i++) {
+                  maptiksMap.addLayer(arcGISLayers[i]);
+                }
+
+                maptiksMap.on("update-end", lang.hitch(this, function (args) {
+                    var map = args.target;
+                    var basemapLayerId = map.basemapLayerIds[0];
+                    var basemapLayer = map.getLayer(basemapLayerId);
+                    if (basemapLayer) {
+                        map.removeLayer(basemapLayer);
+                    }
+                }));
+
+                this.map = maptiksMap;
+                // *******************************************
+                // **** Maptiks Changes done
+                // *******************************************
+
+                // this.map = response.map;
                 this.config.response = response;
                 domClass.add(this.map.infoWindow.domNode, "light");
                 //define the application title
