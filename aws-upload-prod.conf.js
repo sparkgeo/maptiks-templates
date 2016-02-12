@@ -1,6 +1,6 @@
 module.exports = {
     credentials:"aws-credentials.json",
-    bucketName:"dev.templates.maptiks.com",
+    bucketName:"templates.maptiks.com",
     patterns:[
         "esri/**",
         "img/**",
