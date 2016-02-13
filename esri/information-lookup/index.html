@@ -12,6 +12,9 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="shortcut icon" href="/img/favicon.png">
+
     <!-- End Responsive -->
     <!-- Use protocol relative urls that way if the browser is viewing the page via HTTPS the js/css file will be requested using the HTTPS protocol -->
     <link rel="stylesheet" href="//jsdev.arcgis.com/3.16/dijit/themes/claro/claro.css">
@@ -73,7 +76,7 @@
                 <div id="mapButtons" class="map-buttons"></div>
                 <div id="basemapDiv"></div>
             </div>
-
+            <div id="noShow" dir="ltr"></div>
         </div>
     </div>
 
@@ -92,7 +95,8 @@
             }, {
                 name: "arcgis_templates",
                 location: package_path + '/..'
-            }]
+            }],
+            paths: { maptiks: 'https://cdn.maptiks.com/esri3' }
         };
         var urlLocale = location.search.match(/locale=([\w\-]+)/) ? RegExp.$1 : null;
         if (urlLocale) {
