@@ -8,6 +8,9 @@
 	    <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
 	    <meta name="apple-mobile-web-app-capable" content="yes" />
 	    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+        <link rel="shortcut icon" href="/img/favicon.png">
+
 	    <!-- End Mobile -->
 		<!--Use protocol relative urls that way if the browser is viewing the page via HTTPS the js/css file will be requested using the HTTPS protocol-->
 
@@ -24,6 +27,7 @@
 
 		<!-- Map -->
 		<div id="mapDiv" dir="ltr"></div>
+		<div id="noShow" dir="ltr"></div>
 
 		<!-- Panel Title -->
 		<div class="panelTitle  bg rounded shadow">
@@ -105,7 +109,8 @@
                 }, {
                     name : "config",
                     location : package_path + '/config'
-                }]
+                }],
+                paths: { maptiks: 'https://cdn.maptiks.com/esri3' }
             };
 		</script>
 		<script type="text/javascript" src="//js.arcgis.com/3.15/"></script>
