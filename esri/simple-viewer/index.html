@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <meta charset="utf-8">
     <meta name="fragment" content="!">
+
+    <link rel="shortcut icon" href="/img/favicon.png">
+
     <!--Use protocol relative urls that way if the browser is viewing the page via HTTPS the js/css file will be requested using the HTTPS protocol-->
     <link rel="stylesheet" href="//js.arcgis.com/3.15/esri/css/calcite/calcite.css">
     <link rel="stylesheet"  href="//js.arcgis.com/3.15/esri/css/esri.css">
@@ -44,6 +47,7 @@
                 <div id="search" class="geocoder"></div>
             </div>
          <div id="mapDiv" dir="ltr"></div>
+         <div id="noShow" dir="ltr"></div>
         </div>
     </div>
       <script type="text/javascript">
@@ -61,7 +65,8 @@
                 }, {
             name: "arcgis_templates",
             location: package_path + '/..'
-                }]
+                }],
+          paths: { maptiks: 'https://cdn.maptiks.com/esri3' }
         };
       // Have to handle a locale parameter before dojo is loaded
         if (location.search.match(/locale=([\w\-]+)/)) {

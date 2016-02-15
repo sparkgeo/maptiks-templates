@@ -3,9 +3,9 @@ define([], function() {
     //default web map, default app color theme and more. These values can be overwritten by template configuration settings
     //and url parameters.
     var defaults = {
-        "appid": "",
+        "appid": "76dad11da5a345688ab1d8388ae07e2c",
         "webmap": "6c4e81f90c4b4935945e9b623c5247e0",
-        "oauthappid": null, //"AFTKRmv16wj14N3z",
+        "oauthappid": "5ELG8LDjB7j7TPUr", //"AFTKRmv16wj14N3z",
         //Group templates must support a group url parameter. This will contain the id of the group. 
         //group: "",
         //Enter the url to the proxy if needed by the application. See the 'Using the proxy page' help topic for details
