@@ -11,6 +11,9 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="shortcut icon" href="/img/favicon.png">
+
     <!-- End Responsive -->
     <!-- Mobile -->
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
@@ -90,6 +93,7 @@
             <div id="mapDiv" dir="ltr">
                 <div id="swipeDiv"></div>
             </div>
+            <div id="noShow" dir="ltr"/>
             <div id="printButton"></div>
         </div>
     </div>
@@ -108,7 +112,8 @@
             }, {
                 name: "arcgis_templates",
                 location: package_path + '/..'
-            }]
+            }],
+            paths: { maptiks: 'https://cdn.maptiks.com/esri3' }
         };
         // Have to handle a locale parameter before dojo is loaded
         if (location.search.match(/locale=([\w-]+)/)) {

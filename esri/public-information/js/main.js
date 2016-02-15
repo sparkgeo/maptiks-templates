@@ -1,4 +1,5 @@
 define([
+    "maptiks/map",
     "dojo/_base/declare",
     "dojo/_base/lang",
     "esri/arcgis/utils",
@@ -28,6 +29,7 @@ define([
     "esri/dijit/Print"
 ],
   function (
+    Map,
     declare,
     lang,
     arcgisUtils,
@@ -633,7 +635,7 @@ define([
           }
         }
         //can be defined for the popup like modifying the highlight symbol, margin etc.
-        arcgisUtils.createMap(itemInfo, "mapDiv", {
+        arcgisUtils.createMap(itemInfo, "noShow", {
           mapOptions: {
             infoWindow: customPopup
               //Optionally define additional map config here for example you can
@@ -648,7 +650,37 @@ define([
           //such as the map, operational layers, popup info and more. This object will also contain
           //any custom options you defined for the template. In this example that is the 'theme' property.
           //Here' we'll use it to update the application to match the specified color theme.
-          this.map = response.map;
+          // *******************************************
+          // **** Maptiks Changes below
+          // *******************************************
+          domConstruct.destroy("noShow");
+
+          var maptiksMapOptions = {
+            extent: response.map.extent,
+            maptiks_trackcode: this.config.maptiks_trackcode,
+            maptiks_id: this.config.maptiks_id,
+          };
+
+          var maptiksMap = new Map('mapDiv', maptiksMapOptions);
+          
+          //for some reason, we need to suspend/resume the Graphics Layers
+          maptiksMap.on("layer-add", lang.hitch(this, function (args) {
+              args.layer.suspend();
+              args.layer.resume();
+          }));
+
+          // Add visible layers
+          var arcGISLayers = response.map.getLayersVisibleAtScale();
+          for (var i = 0; i < arcGISLayers.length; i++) {
+              maptiksMap.addLayer(arcGISLayers[i]);
+          }
+
+          this.map = maptiksMap;
+          // *******************************************
+          // **** Maptiks Changes done
+          // *******************************************
+
+          // this.map = response.map;
           this.layers = arcgisUtils.getLayerList(response);
           this.item = response.itemInfo.item;
           this.bookmarks = response.itemInfo.itemData.bookmarks;
