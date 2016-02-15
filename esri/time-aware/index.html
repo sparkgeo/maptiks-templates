@@ -13,6 +13,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name = "viewport" content = "initial-scale = 1.0">  
+
+  <link rel="shortcut icon" href="/img/favicon.png">
+
   <!-- End Responsive -->
   <!-- Use protocol relative urls that way if the browser is viewing the page via HTTPS the js/css file will be requested using the HTTPS protocol -->
   <link href="//fonts.googleapis.com/css?family=Roboto+Mono:400,700" rel="stylesheet" type="text/css">
@@ -75,6 +78,8 @@
 
     </div>
   </div>
+  <div id="noShow" dir="ltr"></div>
+
   <script type="text/javascript">
     var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
     var dojoConfig = {
@@ -90,7 +95,8 @@
             }, {
         name: "arcgis_templates",
         location: package_path + '/..'
-            }]
+            }],
+      paths: { maptiks: 'https://cdn.maptiks.com/esri3' }
     };
     // Have to handle a locale parameter before dojo is loaded
       if (location.search.match(/locale=([\w\-]+)/)) {
