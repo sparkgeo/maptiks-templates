@@ -2,7 +2,7 @@ define({
     //Default configuration settings for the applciation. This is where you"ll define things like a bing maps key,
     //default web map, default app color theme and more. These values can be overwritten by template configuration settings
     //and url parameters.
-    "appid": "",
+    "appid": "4f047ca014524dd981636c1892f6db22",
     "webmap": "0c5cb13c4fc54b28bb26a125221ed96f",
     "form_layer": {
         "id": ""
@@ -15,7 +15,7 @@ define({
     "fields": {
     },
     "theme": "basic", // see values in themes.js
-    "oauthappid": null,
+    "oauthappid": "5ELG8LDjB7j7TPUr",
     //Enter the url to the proxy if needed by the applcation. See the "Using the proxy page" help topic for details
     // //developers.arcgis.com/en/javascript/jshelp/ags_proxy.html
     "proxyurl": "",
