@@ -6,7 +6,6 @@ general:
       - develop
 test:
   override:
-    - npm run lint
 machine:
   node:
     version: 6.3.1
