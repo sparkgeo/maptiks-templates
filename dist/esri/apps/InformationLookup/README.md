@@ -8,11 +8,11 @@ Web app template that is used to determine if the location specified intersects 
 * Place Finding - Find places or geocode an address
 * Graphics - Draw a point
 * Query - Determine if drawn graphic is within a specific area
-* Webmap- Use the template with ArcGIS Online webmaps 
+* Webmap- Use the template with ArcGIS Online webmaps
 
 ## Instructions
 
-1. Fork and then clone the repo. 
+1. Fork and then clone the repo.
 2. Update the configuration settings to use template
 2. Run and try the samples.
 
@@ -28,7 +28,7 @@ Web app template that is used to determine if the location specified intersects 
 3. Change the sharing host, found in defaults.js inside the config folder for the application, to the sharing URL for ArcGIS Online or Portal. For ArcGIS Online users, keep the default value of www.arcgis.com or specify the name of your organization.
   - ArcGIS Online Example:  `"sharinghost": location.protocol + "//" + “<your organization name>.maps.arcgis.com`
   - Portal Example where `arcgis` is the name of the Web Adaptor: `"sharinghost": location.protocol + "//" + "webadaptor.domain.com/arcgis"`
-4. If you are using Portal or a local install of the ArcGIS API for JavaScript, change all references to the ArcGIS API for JavaScript in index.html to refer to your local copy of the API. Search for the references containing `"//js.arcgis.com/3.15"` and replace this portion of the reference with the url to your local install.
+4. If you are using Portal or a local install of the ArcGIS API for JavaScript, change all references to the ArcGIS API for JavaScript in index.html to refer to your local copy of the API. Search for the references containing `"//js.arcgis.com/3.17"` and replace this portion of the reference with the url to your local install.
   - For example: `"//webadaptor.domain.com/arcgis/jsapi/jsapi"` where `arcgis` is the name of your Web Adaptor.
 5. Copy a map or group ID from Portal/ArcGIS Online and replace the default web map ID in the application’s index.html page. You can now run the application on your web server or customize the application further.
 
