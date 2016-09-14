@@ -6,6 +6,7 @@ general:
       - develop
 test:
   override:
+    - echo "no test"
 machine:
   node:
     version: 6.3.1
