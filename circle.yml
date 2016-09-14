@@ -1,0 +1,49 @@
+general:
+  branches:
+    only:
+      - master
+      - staging
+      - develop
+test:
+  override:
+    - npm run lint
+machine:
+  node:
+    version: 6.3.1
+dependencies:
+  pre:
+    - pip install awscli
+  post:
+deployment:
+  prod:
+    branch: master
+    commands:
+      - ./deploy.sh templates.maptiks.com
+      - >
+        curl -X DELETE "https://api.cloudflare.com/client/v4/zones/34e8519f80106c3699e76002b4153ce5/purge_cache"
+        -H "X-Auth-Email: will@sparkgeo.com"
+        -H "X-Auth-Key: $CF_KEY"
+        -H "Content-Type: application/json"
+        --data '{"files":["http://templates.maptiks.com/esri/"]}'
+  staging:
+    branch: staging
+    commands:
+      - sed -i 's/cdn.maptiks.com/cdn-staging.maptiks.com/g' *.html
+      - ./deploy.sh templates-staging.maptiks.com
+      - >
+        curl -X DELETE "https://api.cloudflare.com/client/v4/zones/34e8519f80106c3699e76002b4153ce5/purge_cache"
+        -H "X-Auth-Email: will@sparkgeo.com"
+        -H "X-Auth-Key: $CF_KEY"
+        -H "Content-Type: application/json"
+        --data '{"files":["http://templates-staging.maptiks.com/esri/"]}'
+  dev:
+    branch: develop
+    commands:
+      - sed -i 's/cdn.maptiks.com/cdn-dev.maptiks.com/g' *.html
+      - ./deploy.sh templates-dev.maptiks.com
+      - >
+        curl -X DELETE "https://api.cloudflare.com/client/v4/zones/34e8519f80106c3699e76002b4153ce5/purge_cache"
+        -H "X-Auth-Email: will@sparkgeo.com"
+        -H "X-Auth-Key: $CF_KEY"
+        -H "Content-Type: application/json"
+        --data '{"files":["http://templates-dev.maptiks.com/esri/"]}'
