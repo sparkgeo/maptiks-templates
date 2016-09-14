@@ -27,7 +27,7 @@ deployment:
   staging:
     branch: staging
     commands:
-      - sed -i 's/cdn.maptiks.com/cdn-staging.maptiks.com/g' **/index.html
+      - sed -i '' 's/cdn.maptiks.com/cdn-staging.maptiks.com/g' **/index.html
       - ./deploy.sh templates-staging.maptiks.com
       - >
         curl -X DELETE "https://api.cloudflare.com/client/v4/zones/34e8519f80106c3699e76002b4153ce5/purge_cache"
@@ -38,7 +38,7 @@ deployment:
   dev:
     branch: develop
     commands:
-      - sed -i 's/cdn.maptiks.com/cdn-dev.maptiks.com/g' **/index.html
+      - sed -i '' 's/cdn.maptiks.com/cdn-dev.maptiks.com/g' **/index.html
       - ./deploy.sh templates-dev.maptiks.com
       - >
         curl -X DELETE "https://api.cloudflare.com/client/v4/zones/34e8519f80106c3699e76002b4153ce5/purge_cache"
