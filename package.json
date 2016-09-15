@@ -1,0 +1,10 @@
+{
+  "name": "maptiks-templates",
+  "repository": {
+    "github": "sparkgeo/maptiks-templates"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.13.0",
+    "gulp": "^3.9.1"
+  }
+}
