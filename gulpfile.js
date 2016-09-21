@@ -6,6 +6,7 @@ gulp.task('serve', () => {
     ghostMode: false,
     open: false,
     server: './dist/',
+    port: 3050,
   });
   gulp.watch([
     'dist/**/*',
