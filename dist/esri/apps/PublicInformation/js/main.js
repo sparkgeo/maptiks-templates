@@ -1,5 +1,5 @@
 define([
-    "maptiks/map",
+    "maptiks/mapWrapper",
     "dojo/_base/declare",
     "dojo/_base/lang",
     "esri/arcgis/utils",
@@ -113,7 +113,7 @@ define([
           }));
           // startup drawer
           this._drawer.startup();
-          //supply either the webmap id or, if available, the item info 
+          //supply either the webmap id or, if available, the item info
           var itemInfo = this.config.itemInfo || this.config.webmap;
           this._createWebMap(itemInfo);
         } else {
@@ -589,7 +589,7 @@ define([
         this._mobileGeocoderIconNode = dom.byId("mobileGeocoderIcon");
         this._mobileSearchNode = dom.byId("mobileSearch");
         this._mobileGeocoderIconContainerNode = dom.byId("mobileGeocoderIconContainer");
-        // mobile geocoder toggle 
+        // mobile geocoder toggle
         if (this._mobileGeocoderIconNode) {
           on(this._mobileGeocoderIconNode, "click", lang.hitch(this, function () {
             if (domStyle.get(this._mobileSearchNode, "display") === "none") {
@@ -662,7 +662,6 @@ define([
           };
 
           var maptiksMap = new Map('mapDiv', maptiksMapOptions);
-          
           //for some reason, we need to suspend/resume the Graphics Layers
           maptiksMap.on("layer-add", lang.hitch(this, function (args) {
               args.layer.suspend();
