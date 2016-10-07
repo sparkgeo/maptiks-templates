@@ -1,5 +1,5 @@
-define(["maptiks/map", "dojo/ready", "dojo/_base/declare", "dojo/_base/lang", "dojo/_base/array", "dojo/_base/Color", "esri/arcgis/utils", "esri/urlUtils", "dojo/on", "dojo/has", "dojo/sniff", "dijit/registry", "application/Drawer", "esri/dijit/Search", "application/SearchSources", "esri/tasks/locator", "esri/lang", "esri/dijit/Legend", "dojo/dom-class", "dojo/dom-style", "dojo/dom", "dojo/query", "dojo/dom-construct", "esri/dijit/LocateButton", "esri/dijit/HomeButton", "esri/layers/FeatureLayer"], function (
-Map, ready, declare, lang, array, Color, arcgisUtils, urlUtils, on, has, sniff, registry, Drawer, Search, SearchSources, Locator, esriLang, Legend, domClass, domStyle, dom, query, domConstruct, LocateButton, HomeButton,FeatureLayer) {
+define(["maptiks/mapWrapper", "dojo/ready", "dojo/_base/declare", "dojo/_base/lang", "dojo/_base/array", "dojo/_base/Color", "esri/arcgis/utils", "esri/urlUtils", "dojo/on", "dojo/has", "dojo/sniff", "dijit/registry", "application/Drawer", "esri/dijit/Search", "application/SearchSources", "esri/tasks/locator", "esri/lang", "esri/dijit/Legend", "dojo/dom-class", "dojo/dom-style", "dojo/dom", "dojo/query", "dojo/dom-construct", "esri/dijit/LocateButton", "esri/dijit/HomeButton", "esri/layers/FeatureLayer"], function (
+mapWrapper, ready, declare, lang, array, Color, arcgisUtils, urlUtils, on, has, sniff, registry, Drawer, Search, SearchSources, Locator, esriLang, Legend, domClass, domStyle, dom, query, domConstruct, LocateButton, HomeButton,FeatureLayer) {
     return declare("", null, {
         config: {},
         theme: null,
@@ -223,7 +223,7 @@ Map, ready, declare, lang, array, Color, arcgisUtils, urlUtils, on, has, sniff, 
             var mapOptions = {};
             mapOptions = this._setLevel(mapOptions);
             mapOptions = this._setCenter(mapOptions);
-            arcgisUtils.createMap(itemInfo, "noShow", {
+            arcgisUtils.createMap(itemInfo, "mapDiv", {
                 mapOptions: mapOptions,
                 editable:false,
                 usePopupManager: true,
@@ -239,34 +239,19 @@ Map, ready, declare, lang, array, Color, arcgisUtils, urlUtils, on, has, sniff, 
                 // *******************************************
                 // **** Maptiks Changes below
                 // *******************************************
-                domConstruct.destroy("noShow");
 
                 var maptiksMapOptions = {
-                extent: response.map.extent,
-                maptiks_trackcode: this.config.maptiks_trackcode,
-                maptiks_id: this.config.maptiks_id,
+                  extent: response.map.extent,
+                  maptiks_trackcode: this.config.maptiks_trackcode,
+                  maptiks_id: this.config.maptiks_id,
                 };
+                mapWrapper('mapDiv', maptiksMapOptions, response.map);
 
-                var maptiksMap = new Map('mapDiv', maptiksMapOptions);
-
-                //for some reason, we need to suspend/resume the Graphics Layers
-                maptiksMap.on("layer-add", lang.hitch(this, function (args) {
-                  args.layer.suspend();
-                  args.layer.resume();
-                }));
-
-                // Add visible layers
-                var arcGISLayers = response.map.getLayersVisibleAtScale();
-                for (var i = 0; i < arcGISLayers.length; i++) {
-                  maptiksMap.addLayer(arcGISLayers[i]);
-                }
-
-                this.map = maptiksMap;
                 // *******************************************
                 // **** Maptiks Changes done
                 // *******************************************
 
-                // this.map = response.map;
+                this.map = response.map;
                 domClass.add(this.map.infoWindow.domNode, "light");
 
                 this.config.response = response;
