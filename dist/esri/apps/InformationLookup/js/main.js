@@ -16,7 +16,7 @@
  | limitations under the License.
  */
 define([
-  "maptiks/map",
+  "maptiks/mapWrapper",
   "dojo",
   "dojo/_base/declare",
   "dojo/_base/lang",
@@ -38,7 +38,7 @@ define([
   "dojo/domReady!"
 ],
 function (
-    Map,
+    mapWrapper,
     dojo,
     declare,
     lang,
@@ -435,7 +435,7 @@ function (
       // set map center from config/url
       mapOptions = this._setCenter(mapOptions);
       // create webmap from item
-      return arcgisUtils.createMap(itemInfo, "noShow", {
+      return arcgisUtils.createMap(itemInfo, "mapDiv", {
         mapOptions: mapOptions,
         usePopupManager: true,
         layerMixins: this.config.layerMixins || [],
@@ -451,34 +451,19 @@ function (
         // *******************************************
         // **** Maptiks Changes below
         // *******************************************
-        domConstruct.destroy("noShow");
 
         var maptiksMapOptions = {
           extent: response.map.extent,
           maptiks_trackcode: this.config.maptiks_trackcode,
           maptiks_id: this.config.maptiks_id,
         };
+        mapWrapper('mapDiv', maptiksMapOptions, response.map);
 
-        var maptiksMap = new Map('mapDiv', maptiksMapOptions);
-        
-        //for some reason, we need to suspend/resume the Graphics Layers
-        maptiksMap.on("layer-add", lang.hitch(this, function (args) {
-            args.layer.suspend();
-            args.layer.resume();
-        }));
-
-        // Add visible layers
-        var arcGISLayers = response.map.getLayersVisibleAtScale();
-        for (var i = 0; i < arcGISLayers.length; i++) {
-            maptiksMap.addLayer(arcGISLayers[i]);
-        }
-
-        this.map = maptiksMap;
         // *******************************************
         // **** Maptiks Changes done
         // *******************************************
 
-        // this.map = response.map;
+        this.map = response.map;
         //added for information lookup
         this.config.response = response;
         this.layers = response.itemInfo.itemData.operationalLayers;

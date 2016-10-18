@@ -1,5 +1,5 @@
 define([
-    "maptiks/map",
+    "maptiks/mapWrapper",
     "dojo/_base/declare",
     "dojo/_base/lang",
     "esri/arcgis/utils",
@@ -29,7 +29,7 @@ define([
     "esri/dijit/Print"
 ],
   function (
-    Map,
+    mapWrapper,
     declare,
     lang,
     arcgisUtils,
@@ -113,7 +113,7 @@ define([
           }));
           // startup drawer
           this._drawer.startup();
-          //supply either the webmap id or, if available, the item info 
+          //supply either the webmap id or, if available, the item info
           var itemInfo = this.config.itemInfo || this.config.webmap;
           this._createWebMap(itemInfo);
         } else {
@@ -589,7 +589,7 @@ define([
         this._mobileGeocoderIconNode = dom.byId("mobileGeocoderIcon");
         this._mobileSearchNode = dom.byId("mobileSearch");
         this._mobileGeocoderIconContainerNode = dom.byId("mobileGeocoderIconContainer");
-        // mobile geocoder toggle 
+        // mobile geocoder toggle
         if (this._mobileGeocoderIconNode) {
           on(this._mobileGeocoderIconNode, "click", lang.hitch(this, function () {
             if (domStyle.get(this._mobileSearchNode, "display") === "none") {
@@ -635,7 +635,7 @@ define([
           }
         }
         //can be defined for the popup like modifying the highlight symbol, margin etc.
-        arcgisUtils.createMap(itemInfo, "noShow", {
+        arcgisUtils.createMap(itemInfo, "mapDiv", {
           mapOptions: {
             infoWindow: customPopup
               //Optionally define additional map config here for example you can
@@ -653,34 +653,17 @@ define([
           // *******************************************
           // **** Maptiks Changes below
           // *******************************************
-          domConstruct.destroy("noShow");
-
           var maptiksMapOptions = {
             extent: response.map.extent,
             maptiks_trackcode: this.config.maptiks_trackcode,
             maptiks_id: this.config.maptiks_id,
           };
-
-          var maptiksMap = new Map('mapDiv', maptiksMapOptions);
-          
-          //for some reason, we need to suspend/resume the Graphics Layers
-          maptiksMap.on("layer-add", lang.hitch(this, function (args) {
-              args.layer.suspend();
-              args.layer.resume();
-          }));
-
-          // Add visible layers
-          var arcGISLayers = response.map.getLayersVisibleAtScale();
-          for (var i = 0; i < arcGISLayers.length; i++) {
-              maptiksMap.addLayer(arcGISLayers[i]);
-          }
-
-          this.map = maptiksMap;
+          mapWrapper('mapDiv', maptiksMapOptions, response.map);
           // *******************************************
           // **** Maptiks Changes done
           // *******************************************
 
-          // this.map = response.map;
+          this.map = response.map;
           this.layers = arcgisUtils.getLayerList(response);
           this.item = response.itemInfo.item;
           this.bookmarks = response.itemInfo.itemData.bookmarks;

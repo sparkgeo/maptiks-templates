@@ -15,8 +15,8 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define(["maptiks/map", "dojo/_base/declare", "dojo/_base/lang", "dojo/query", "dijit/registry", "dojo/on", "dojo/string", "dojo/date/locale", "dojo/dom-construct", "dojo/dom-style", "dojo/_base/array", "esri/arcgis/utils", "esri/lang", "esri/layers/FeatureLayer", "esri/TimeExtent", "esri/dijit/TimeSlider", "dojo/dom", "dojo/dom-class", "dojo/domReady!"], function (
-Map, declare, lang, query, registry, on, string, locale, domConstruct, domStyle, array, arcgisUtils, esriLang, FeatureLayer, TimeExtent, TimeSlider, dom, domClass) {
+define(["maptiks/mapWrapper", "dojo/_base/declare", "dojo/_base/lang", "dojo/query", "dijit/registry", "dojo/on", "dojo/string", "dojo/date/locale", "dojo/dom-construct", "dojo/dom-style", "dojo/_base/array", "esri/arcgis/utils", "esri/lang", "esri/layers/FeatureLayer", "esri/TimeExtent", "esri/dijit/TimeSlider", "dojo/dom", "dojo/dom-class", "dojo/domReady!"], function (
+mapWrapper, declare, lang, query, registry, on, string, locale, domConstruct, domStyle, array, arcgisUtils, esriLang, FeatureLayer, TimeExtent, TimeSlider, dom, domClass) {
     return declare(null, {
         config: {},
         startup: function (config) {
@@ -618,7 +618,7 @@ Map, declare, lang, query, registry, on, string, locale, domConstruct, domStyle,
                 sliderPosition = "top-left";
             }
             mapOptions.sliderPosition = sliderPosition;
-            arcgisUtils.createMap(itemInfo, "noShow", {
+            arcgisUtils.createMap(itemInfo, "mapDiv", {
                 mapOptions: mapOptions,
                 usePopupManager: true,
                 layerMixins: this.config.layerMixins || [],
@@ -628,33 +628,18 @@ Map, declare, lang, query, registry, on, string, locale, domConstruct, domStyle,
                 // *******************************************
                 // **** Maptiks Changes below
                 // *******************************************
-                domConstruct.destroy("noShow");
 
                 var maptiksMapOptions = {
                   extent: response.map.extent,
                   maptiks_trackcode: this.config.maptiks_trackcode,
                   maptiks_id: this.config.maptiks_id,
                 };
+                mapWrapper('mapDiv', maptiksMapOptions, response.map);
 
-                var maptiksMap = new Map('mapDiv', maptiksMapOptions);
-                
-                //for some reason, we need to suspend/resume the Graphics Layers
-                maptiksMap.on("layer-add", lang.hitch(this, function (args) {
-                    args.layer.suspend();
-                    args.layer.resume();
-                }));
-
-                // Add visible layers
-                var arcGISLayers = response.map.getLayersVisibleAtScale();
-                for (var i = 0; i < arcGISLayers.length; i++) {
-                    maptiksMap.addLayer(arcGISLayers[i]);
-                }
-
-                this.map = maptiksMap;
                 // *******************************************
                 // **** Maptiks Changes done
                 // *******************************************
-                // this.map = response.map;
+                this.map = response.map;
   
                 this.config.response = response;
                 // remove loading class from body
