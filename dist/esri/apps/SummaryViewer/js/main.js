@@ -1,5 +1,5 @@
 define([
-        "maptiks/map",
+        "maptiks/mapWrapper",
         "dojo/ready", 
         "dojo/_base/declare", 
         "dojo/dom", 
@@ -23,7 +23,7 @@ define([
         "application/ClusterLayer",
         "dojo/on"
     ], function(
-        Map,
+        mapWrapper,
         ready, 
         declare, 
         dom, 
@@ -142,7 +142,7 @@ define([
       //create a map based on the input web map id
       createWebMap : function() {
 
-         arcgisUtils.createMap(this.config.webmap, "noShow", {
+         arcgisUtils.createMap(this.config.webmap, "mapDiv", {
             mapOptions : {
                showAttribution : false
             },
@@ -153,34 +153,19 @@ define([
             // *******************************************
             // **** Maptiks Changes below
             // *******************************************
-            domConstruct.destroy("noShow");
 
             var maptiksMapOptions = {
               extent: response.map.extent,
               maptiks_trackcode: this.config.maptiks_trackcode,
               maptiks_id: this.config.maptiks_id,
             };
+            mapWrapper('mapDiv', maptiksMapOptions, response.map);
 
-            var maptiksMap = new Map('mapDiv', maptiksMapOptions);
-            
-            //for some reason, we need to suspend/resume the Graphics Layers
-            maptiksMap.on("layer-add", lang.hitch(this, function (args) {
-                args.layer.suspend();
-                args.layer.resume();
-            }));
-
-            // Add visible layers
-            var arcGISLayers = response.map.getLayersVisibleAtScale();
-            for (var i = 0; i < arcGISLayers.length; i++) {
-                maptiksMap.addLayer(arcGISLayers[i]);
-            }
-
-            this.map = maptiksMap;
             // *******************************************
             // **** Maptiks Changes done
             // *******************************************
 
-            // this.map = response.map;
+            this.map = response.map;
 
             // cluster layer
             var clusterLayer = new ClusterLayer({

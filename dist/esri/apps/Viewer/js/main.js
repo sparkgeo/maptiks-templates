@@ -14,7 +14,7 @@
  | limitations under the License.
  */
 define([
-    "maptiks/map",
+    "maptiks/mapWrapper",
     "dojo/ready", 
     "dojo/json", 
 
@@ -61,7 +61,7 @@ define([
     "esri/geometry/Extent", 
     "esri/layers/FeatureLayer"
     ], function (
-        Map,
+        mapWrapper,
         ready,JSON,
 
         esriBundle,
@@ -1049,7 +1049,7 @@ define([
             mapOptions = this._setCenter(mapOptions);
 
             // create a map based on the input web map id
-            arcgisUtils.createMap(itemInfo, "noShow", {
+            arcgisUtils.createMap(itemInfo, "mapDiv", {
                 mapOptions: mapOptions,
                 editable: has("edit"),
                 //is the app editable
@@ -1061,33 +1061,19 @@ define([
                 // *******************************************
                 // **** Maptiks Changes below
                 // *******************************************
-                domConstruct.destroy("noShow");
 
                 var maptiksMapOptions = {
                   extent: response.map.extent,
                   maptiks_trackcode: this.config.maptiks_trackcode,
                   maptiks_id: this.config.maptiks_id,
                 };
-
-                var maptiksMap = new Map('mapDiv', maptiksMapOptions);
+                mapWrapper('mapDiv', maptiksMapOptions, response.map);
                 
-                //for some reason, we need to suspend/resume the Graphics Layers
-                maptiksMap.on("layer-add", lang.hitch(this, function (args) {
-                    args.layer.suspend();
-                    args.layer.resume();
-                }));
-
-                // Add visible layers
-                var arcGISLayers = response.map.getLayersVisibleAtScale();
-                for (var i = 0; i < arcGISLayers.length; i++) {
-                    maptiksMap.addLayer(arcGISLayers[i]);
-                }
-
-                this.map = maptiksMap;
                 // *******************************************
                 // **** Maptiks Changes done
                 // *******************************************
             
+                this.map = response.map;
                 domClass.add(this.map.infoWindow.domNode, "light");
 
                 this._updateTheme();
