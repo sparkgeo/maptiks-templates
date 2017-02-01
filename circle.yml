@@ -24,7 +24,7 @@ deployment:
         -H "X-Auth-Email: will@sparkgeo.com"
         -H "X-Auth-Key: $CF_KEY"
         -H "Content-Type: application/json"
-        --data '{"files":["http://templates.maptiks.com/esri/"]}'
+        --data '{"purge_everything":true}'
   staging:
     branch: staging
     commands:
@@ -35,7 +35,7 @@ deployment:
         -H "X-Auth-Email: will@sparkgeo.com"
         -H "X-Auth-Key: $CF_KEY"
         -H "Content-Type: application/json"
-        --data '{"files":["http://templates-staging.maptiks.com/esri/"]}'
+        --data '{"purge_everything":true}'
   dev:
     branch: develop
     commands:
@@ -46,4 +46,4 @@ deployment:
         -H "X-Auth-Email: will@sparkgeo.com"
         -H "X-Auth-Key: $CF_KEY"
         -H "Content-Type: application/json"
-        --data '{"files":["http://templates-dev.maptiks.com/esri/"]}'
+        --data '{"purge_everything":true}'
