@@ -1,9 +1,8 @@
 general:
   branches:
-    only:
-      - master
+    ignore:
+      - gh-pages
       - staging
-      - develop
 test:
   override:
     - echo "no test"
@@ -26,7 +25,8 @@ deployment:
         -H "Content-Type: application/json"
         --data '{"purge_everything":true}'
   staging:
-    branch: staging
+    tag: /v[0-9]+(\.[0-9]+)+(-rc[0-9]+)?/ # v1.2.3 and v1.2.3-rc1
+    owner: sparkgeo
     commands:
       - find . -name 'index.html' -exec sed -i 's/cdn.maptiks.com/cdn-staging.maptiks.com/g' {} +
       - ./deploy.sh templates-staging.maptiks.com
