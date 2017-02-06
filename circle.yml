@@ -11,15 +11,11 @@ machine:
     version: 6.3.1
   environment:
     AWS_DEFAULT_REGION: us-west-2
-dependencies:
-  pre:
-    - pip install awscli
-  post:
 deployment:
   prod:
     branch: master
     commands:
-      - ./deploy.sh templates.maptiks.com
+      - aws s3 sync dist/ s3://templates.maptiks.com/ --delete
       - >
         curl -X DELETE "https://api.cloudflare.com/client/v4/zones/34e8519f80106c3699e76002b4153ce5/purge_cache"
         -H "X-Auth-Email: will@sparkgeo.com"
@@ -27,11 +23,11 @@ deployment:
         -H "Content-Type: application/json"
         --data '{"purge_everything":true}'
   staging:
-    tag: /v[0-9]+(\.[0-9]+)+(-rc[0-9]+)?/ # v1.2.3 and v1.2.3-rc1
+    branch: staging
     owner: sparkgeo
     commands:
       - find . -name 'index.html' -exec sed -i 's/cdn.maptiks.com/cdn-staging.maptiks.com/g' {} +
-      - ./deploy.sh templates-staging.maptiks.com
+      - aws s3 sync dist/ s3://templates-staging.maptiks.com/ --delete
       - >
         curl -X DELETE "https://api.cloudflare.com/client/v4/zones/34e8519f80106c3699e76002b4153ce5/purge_cache"
         -H "X-Auth-Email: will@sparkgeo.com"
@@ -42,7 +38,7 @@ deployment:
     branch: develop
     commands:
       - find . -name 'index.html' -exec sed -i 's/cdn.maptiks.com/cdn-dev.maptiks.com/g' {} +
-      - ./deploy.sh templates-dev.maptiks.com
+      - aws s3 sync dist/ s3://templates-dev.maptiks.com/ --delete
       - >
         curl -X DELETE "https://api.cloudflare.com/client/v4/zones/34e8519f80106c3699e76002b4153ce5/purge_cache"
         -H "X-Auth-Email: will@sparkgeo.com"
