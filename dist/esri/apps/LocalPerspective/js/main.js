@@ -16,6 +16,7 @@
  | limitations under the License.
  */
 define([
+    "maptiks/mapWrapper",
     "dojo/ready",
     "dojo/_base/array",
     "dojo/_base/Color",
@@ -36,6 +37,7 @@ define([
     "esri/urlUtils",
     "application/SearchSources"
 ], function(
+    mapWrapper,
     ready,
     array,
     Color,
@@ -198,6 +200,22 @@ define([
             }).then(lang.hitch(this, function(response) {
 
                 this.config.response = response;
+              
+                // *******************************************
+                // **** Maptiks Changes below
+                // *******************************************
+
+                var maptiksMapOptions = {
+                  extent: response.map.extent,
+                  maptiks_trackcode: this.config.maptiks_trackcode,
+                  maptiks_id: this.config.maptiks_id,
+                };
+                mapWrapper('mapDiv', maptiksMapOptions, response.map);
+
+                // *******************************************
+                // **** Maptiks Changes done
+                // *******************************************
+              
                 this.map = response.map;
                 this.initExt = this.map.extent;
                 this.config.opLayers = response.itemInfo.itemData.operationalLayers;

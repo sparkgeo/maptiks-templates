@@ -18,9 +18,9 @@
 define({
     //Default configuration settings for the application. This is where you'll define things like a bing maps key,
     //default web map, default app color theme and more. These values can be overwritten by template configuration settings and url parameters.
-    "appid": "",
+    "appid": "4709af628b894093922a3a0580892ea0",
     "webmap": "9569a8b938c746359c1b4aa490476506", //"4ab11e3ebab04de6b04c42bbc102d3c0",
-    "oauthappid": null, //"AFTKRmv16wj14N3z",
+    "oauthappid": "5ELG8LDjB7j7TPUr", //"AFTKRmv16wj14N3z",
     //Group templates must support a group url parameter. This will contain the id of the group.
     //group: "",
     //Enter the url to the proxy if needed by the application. See the 'Using the proxy page' help topic for details
