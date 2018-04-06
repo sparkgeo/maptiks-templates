@@ -1,6 +1,7 @@
 /*global $,define,document,require,moment */
 /*jslint sloppy:true,nomen:true */
 define([
+    "maptiks/mapWrapper",
     "dojo/_base/declare",
     "dojo/_base/kernel",
     "dojo/_base/lang",
@@ -44,6 +45,7 @@ define([
     "application/wrapper/main-jquery-deps",
     "dojo/domReady!"
 ], function (
+  mapWrapper,
   declare,
   kernel,
   lang,
@@ -1495,6 +1497,22 @@ define([
         // any custom options you defined for the template. In this example that is the 'theme' property.
         // Here' we'll use it to update the application to match the specified color theme.
         // console.log(this.config);
+        
+        // *******************************************
+        // **** Maptiks Changes below
+        // *******************************************
+
+        var maptiksMapOptions = {
+          extent: response.map.extent,
+          maptiks_trackcode: this.config.maptiks.maptiksTrackcode,
+          maptiks_id: this.config.maptiks.maptiksId
+        };
+        mapWrapper('mapDiv', maptiksMapOptions, response.map);
+
+        // *******************************************
+        // **** Maptiks Changes done
+        // *******************************************
+
         this._createGeoformSections();
         this.map = response.map;
         // Disable scroll zoom handler

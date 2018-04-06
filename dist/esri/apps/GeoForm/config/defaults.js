@@ -14,6 +14,8 @@ define({
     },
     "fields": {
     },
+      "maptiks": {
+    },
     "theme": "basic", // see values in themes.js
     "oauthappid": null,
     //Enter the url to the proxy if needed by the applcation. See the "Using the proxy page" help topic for details

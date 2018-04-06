@@ -126,6 +126,11 @@ define({
       btnViewSubmissions: "View Submissions"
     },
     builder: {
+      maptiksTabTitleText: "Maptiks Settings",
+      maptiksTabText: "Once you have obtained a trackcode from your Maptiks account, enter the trackcode and map ID of your choice below.",
+      maptiksTrackcodeLabelText: "Maptiks Trackcode",
+      maptiksIdLabelText: "Maptiks Map ID",
+      maptiksText: "Maptiks",
       gettingStarted: "Getting Started",
       dateSettings: "Date Settings",
       hiddenDateField: "Hide this date field",

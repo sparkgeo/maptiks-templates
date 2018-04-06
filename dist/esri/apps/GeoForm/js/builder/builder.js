@@ -219,6 +219,7 @@ define([
       this.localStorageSupport = new localStorageHelper();
       this._addOperationalLayers();
       this._populateDetails();
+      this._populateMaptiks();
       this._populateJumbotronOption(this.currentConfig.useSmallHeader);
       this._populateShareOption(this.currentConfig.enableSharing);
       this._populateDefaultExtentOption(this.currentConfig.defaultMapExtent);
@@ -616,6 +617,15 @@ define([
           }
           count++;
         }
+      }
+    },
+    
+    _populateMaptiks: function () {
+      if (this.currentConfig.maptiks.hasOwnProperty("maptiksTrackcode")) {
+        dom.byId("maptiksTrackcodeInput").value = this.currentConfig.maptiksTrackcode;
+      }
+      if (this.currentConfig.maptiks.hasOwnProperty("maptiksId")) {
+        dom.byId("maptiksIdInput").value = this.currentConfig.maptiksId;
       }
     },
 
@@ -1357,6 +1367,10 @@ define([
           }));
         }
         break;
+      case "maptiks":
+        this.currentConfig.maptiks.maptiksTrackcode = dom.byId("maptiksTrackcodeInput").value;
+        this.currentConfig.maptiks.maptiksId = dom.byId("maptiksIdInput").value;
+        break;
       default:
       }
     },
@@ -1364,6 +1378,7 @@ define([
     //function to update the item on arcGis online
     _updateItem: function (saveAndExit) {
       this.appSettings = {
+        "maptiks": this.currentConfig.maptiks,
         "attachmentInfo": this.currentConfig.attachmentInfo,
         "enableAttachments": this.currentConfig.enableAttachments,
         "attachmentIsRequired": this.currentConfig.attachmentIsRequired,
