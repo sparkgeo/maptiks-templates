@@ -622,10 +622,10 @@ define([
     
     _populateMaptiks: function () {
       if (this.currentConfig.maptiks.hasOwnProperty("maptiksTrackcode")) {
-        dom.byId("maptiksTrackcodeInput").value = this.currentConfig.maptiksTrackcode;
+        dom.byId("maptiksTrackcodeInput").value = this.currentConfig.maptiks.maptiksTrackcode;
       }
       if (this.currentConfig.maptiks.hasOwnProperty("maptiksId")) {
-        dom.byId("maptiksIdInput").value = this.currentConfig.maptiksId;
+        dom.byId("maptiksIdInput").value = this.currentConfig.maptiks.maptiksId;
       }
     },
 
