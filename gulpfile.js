@@ -5,10 +5,10 @@ gulp.task('serve', () => {
   browserSync.init({
     ghostMode: false,
     open: false,
-    server: './dist/',
+    server: './src/',
     port: 3050,
   });
   gulp.watch([
-    'dist/**/*',
+    'src/**/*',
   ]).on('change', browserSync.reload);
 });
