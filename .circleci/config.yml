@@ -32,10 +32,9 @@ jobs:
           name: Envir Injection
           command: |
             find src -name 'index.html' -exec sed -i 's/cdn-dev.maptiks.com/cdn.maptiks.com/g' {} +
-            find src -name 'index.html' -exec sed -i 's/6e668c95-0477-4208-b4ee-0fc1f41427de/ebd0926f-a4ab-4f66-b2e1-840828a4c3ed/g' {} +
       - run:
           name: deploy to aws
-          command: aws s3 sync src/ s3://maptiks.com/ --delete
+          command: aws s3 sync src/ s3://templates.maptiks.com/ --delete
       - run:
           name: clear cloudflare cache
           command: |
@@ -50,10 +49,9 @@ jobs:
           name: Envir Injection
           command: |
             find src -name 'index.html' -exec sed -i 's/cdn-dev.maptiks.com/cdn-staging.maptiks.com/g' {} +
-            find src -name 'index.html' -exec sed -i 's/6e668c95-0477-4208-b4ee-0fc1f41427de/69b19b9d-122b-48a9-a0cd-37b39e06e556/g' {} +
       - run:
           name: deploy to aws
-          command: aws s3 sync src/ s3://landing-staging.maptiks.com/ --delete
+          command: aws s3 sync src/ s3://templates-staging.maptiks.com/ --delete
       # - run:
       #     name: clear cloudflare cache
       #     command: |
@@ -68,10 +66,9 @@ jobs:
           name: Envir Injection
           command: |
             find src -name 'index.html' -exec sed -i 's/cdn-dev.maptiks.com/cdn-dev.maptiks.com/g' {} +
-            find src -name 'index.html' -exec sed -i 's/6e668c95-0477-4208-b4ee-0fc1f41427de/529145ea-877b-4ebd-b8f9-62205d1bc01e/g' {} +
       - run:
           name: deploy to aws
-          command: aws s3 sync src/ s3://landing-dev.maptiks.com/ --delete
+          command: aws s3 sync src/ s3://templates-dev.maptiks.com/ --delete
       # - run:
       #     name: clear cloudflare cache
       #     command: |
