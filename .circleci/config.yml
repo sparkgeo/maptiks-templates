@@ -52,10 +52,10 @@ jobs:
       - run:
           name: deploy to aws
           command: aws s3 sync src/ s3://templates-staging.maptiks.com/ --delete
-      # - run:
-      #     name: clear cloudflare cache
-      #     command: |
-      #       curl -X DELETE "https://api.cloudflare.com/client/v4/zones/34e8519f80106c3699e76002b4153ce5/purge_cache" -H "X-Auth-Email: will@sparkgeo.com" -H "X-Auth-Key: $CF_KEY" -H "Content-Type: application/json" --data '{"purge_everything": true}'
+      - run:
+          name: clear cloudflare cache
+          command: |
+            curl -X DELETE "https://api.cloudflare.com/client/v4/zones/34e8519f80106c3699e76002b4153ce5/purge_cache" -H "X-Auth-Email: will@sparkgeo.com" -H "X-Auth-Key: $CF_KEY" -H "Content-Type: application/json" --data '{"purge_everything": true}'
 
 
   deploy-dev:
@@ -69,10 +69,10 @@ jobs:
       - run:
           name: deploy to aws
           command: aws s3 sync src/ s3://templates-dev.maptiks.com/ --delete
-      # - run:
-      #     name: clear cloudflare cache
-      #     command: |
-      #       curl -X DELETE "https://api.cloudflare.com/client/v4/zones/34e8519f80106c3699e76002b4153ce5/purge_cache" -H "X-Auth-Email: will@sparkgeo.com" -H "X-Auth-Key: $CF_KEY" -H "Content-Type: application/json" --data '{"purge_everything": true}'
+      - run:
+          name: clear cloudflare cache
+          command: |
+            curl -X DELETE "https://api.cloudflare.com/client/v4/zones/34e8519f80106c3699e76002b4153ce5/purge_cache" -H "X-Auth-Email: will@sparkgeo.com" -H "X-Auth-Key: $CF_KEY" -H "Content-Type: application/json" --data '{"purge_everything": true}'
 
 
 workflows:
