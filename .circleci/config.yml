@@ -34,7 +34,10 @@ jobs:
             find src -name 'index.html' -exec sed -i 's/cdn-dev.maptiks.com/cdn.maptiks.com/g' {} +
       - run:
           name: deploy to aws
-          command: aws s3 sync src/ s3://templates.maptiks.com/ --delete
+          command: |
+            aws s3 sync src/esri/ s3://templates.maptiks.com/esri/ --delete
+            aws s3 cp src/index.html s3://templates.maptiks.com/index.html
+            aws s3 sync src/img/ s3://templates.maptiks.com/img/ --delete
       - run:
           name: clear cloudflare cache
           command: |
@@ -51,7 +54,10 @@ jobs:
             find src -name 'index.html' -exec sed -i 's/cdn-dev.maptiks.com/cdn-staging.maptiks.com/g' {} +
       - run:
           name: deploy to aws
-          command: aws s3 sync src/ s3://templates-staging.maptiks.com/ --delete
+          command: |
+            aws s3 sync src/esri/ s3://templates-staging.maptiks.com/esri/ --delete
+            aws s3 cp src/index.html s3://templates-staging.maptiks.com/index.html
+            aws s3 sync src/img/ s3://templates-staging.maptiks.com/img/ --delete
       - run:
           name: clear cloudflare cache
           command: |
@@ -68,7 +74,10 @@ jobs:
             find src -name 'index.html' -exec sed -i 's/cdn-dev.maptiks.com/cdn-dev.maptiks.com/g' {} +
       - run:
           name: deploy to aws
-          command: aws s3 sync src/ s3://templates-dev.maptiks.com/ --delete
+          command: |
+            aws s3 sync src/esri/ s3://templates-dev.maptiks.com/esri/ --delete
+            aws s3 cp src/index.html s3://templates-dev.maptiks.com/index.html
+            aws s3 sync src/img/ s3://templates-dev.maptiks.com/img/ --delete
       - run:
           name: clear cloudflare cache
           command: |
