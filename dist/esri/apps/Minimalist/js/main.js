@@ -1,4 +1,5 @@
-define(["dojo/ready", "dojo/parser", "dojo/dom-attr", "dojo/dom-geometry", "dojo/on", "dojo/_base/declare", "dojo/_base/lang", "dojo/_base/kernel", "dojo/query", "dojo/Deferred", "dojo/promise/all", "dojo/dom", "dojo/dom-class", "dojo/dom-style", "dojo/dom-construct", "dijit/registry", "esri/domUtils", "esri/lang", "esri/arcgis/utils", "esri/dijit/Popup", "esri/layers/FeatureLayer", "application/MapUrlParams", "application/sniff", "dojo/domReady!"], function (
+define(["maptiks/mapWrapper", "dojo/ready", "dojo/parser", "dojo/dom-attr", "dojo/dom-geometry", "dojo/on", "dojo/_base/declare", "dojo/_base/lang", "dojo/_base/kernel", "dojo/query", "dojo/Deferred", "dojo/promise/all", "dojo/dom", "dojo/dom-class", "dojo/dom-style", "dojo/dom-construct", "dijit/registry", "esri/domUtils", "esri/lang", "esri/arcgis/utils", "esri/dijit/Popup", "esri/layers/FeatureLayer", "application/MapUrlParams", "application/sniff", "dojo/domReady!"], function (
+  mapWrapper,
   ready,
   parser,
   domAttr,
@@ -729,6 +730,21 @@ define(["dojo/ready", "dojo/parser", "dojo/dom-attr", "dojo/dom-geometry", "dojo
         editable: this.config.editable,
         bingMapsKey: this.config.orgInfo.bingKey || ""
       }).then(lang.hitch(this, function (response) {
+        
+        // *******************************************
+        // **** Maptiks Changes below
+        // *******************************************
+
+        var maptiksMapOptions = {
+          extent: response.map.extent,
+          maptiks_trackcode: this.config.maptiks.maptiksTrackcode,
+          maptiks_id: this.config.maptiks.maptiksId
+        };
+        mapWrapper('mapDiv', maptiksMapOptions, response.map);
+
+        // *******************************************
+        // **** Maptiks Changes done
+        // *******************************************
 
         this.map = response.map;
         document.title = response.itemInfo.item.title;

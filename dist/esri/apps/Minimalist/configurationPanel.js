@@ -1,5 +1,25 @@
 {
     "configurationSettings": [{
+        "category":"<b>Configure Maptiks</b>",
+        "fields":[  
+              {
+                  "type": "string",
+                  "fieldName": "maptiks_trackcode",
+                  "label": "Maptiks Trackcode",
+                  "tooltip": "Enter your Maptiks Tracking Code that you got from analytics.maptiks.com"
+              },
+              {
+                  "type": "string",
+                  "fieldName": "maptiks_id",
+                  "label": "Maptiks Map Name",
+                  "tooltip": "Enter a name for your map"
+              },
+              {
+                  "type": "paragraph",
+                  "value": "If you require a tracking code, you can get one <a target=\"_blank\" href=\"https://analytics.maptiks.com/login/arcgis/?next=/\">here.</a>"
+              }
+          ]
+        }, {
         "category": "General",
         "fields": [{
             "type": "webmap"
