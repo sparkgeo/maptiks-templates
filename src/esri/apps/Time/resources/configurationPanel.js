@@ -1,8 +1,8 @@
-{  
+{
    "configurationSettings":[
       {
          "category":"<b>Configure Maptiks</b>",
-         "fields":[  
+         "fields":[
            {
              "type": "string",
              "fieldName": "maptiks_trackcode",
@@ -17,17 +17,17 @@
            },
            {
              "type": "paragraph",
-             "value": "If you require a tracking code, you can get one <a target=\"_blank\" href=\"https://analytics.maptiks.com/login/arcgis/?next=/\">here.</a>"
+             "value": "If you require a tracking code, you can get one <a target=\"_blank\" href=\"https://analytics.maptiks.com/\">here.</a>"
            }
          ]
       },
-      {  
+      {
          "category":"<b>General</b>",
-         "fields":[  
+         "fields":[
             {
                "type": "appproxies"
             },
-            {  
+            {
                "type":"webmap"
             },
             {
@@ -35,7 +35,7 @@
                "fieldName":"title",
                "label":"Display title"
             },
-            {  
+            {
                "placeHolder":"Defaults to web map title",
                "label":"Title:",
                "fieldName":"titletext",
@@ -58,7 +58,7 @@
                "fieldName": "about",
                "label": "Display about dialog"
             },
-            {  
+            {
                "type":"string",
                "fieldName":"abouttext",
                "label":"About",
@@ -79,13 +79,13 @@
                "type": "paragraph",
                "value": "Use the color pickers to define a new color scheme for the application"
             },
-            {  
+            {
                "type":"color",
                "fieldName":"panelbackground",
                "tooltip":"Background color for panels and title bar",
                "label":"Background color:"
             },
-            {  
+            {
                "type":"color",
                "fieldName":"panelcolor",
                "tooltip":"Title bar text color",
@@ -98,7 +98,7 @@
                "type": "paragraph",
                "value": "If the selected web map is time aware use the options in this section to configure the time behavior for the application. To disable time in the app set <i>Display time</i> to false. "
             },
-            {  
+            {
                "type":"boolean",
                "fieldName": "time",
                "label": "Display time"
@@ -249,10 +249,10 @@
             }
          ]
       },
-      {  
+      {
          "category":"Map Tools",
-         "fields":[  
-            {  
+         "fields":[
+            {
                "type":"boolean",
                "fieldName":"legend",
                "label":"Legend"
@@ -270,12 +270,12 @@
                   }
                ]
             },
-            {  
+            {
                "type":"boolean",
                "fieldName":"zoomslider",
                "label":"Zoom controls"
             },
-            {  
+            {
                "type":"boolean",
                "fieldName":"scale",
                "label":"Scalebar"
@@ -288,7 +288,7 @@
                "type":"paragraph",
                "value": "Enable search to allow users to find a location or data in the map. Configure the search settings to refine the experience in your app by setting the default search resource, placeholder text, etc."
             },
-            {  
+            {
                "type":"boolean",
                "fieldName":"search",
                "label":"Enable search tool"
@@ -300,7 +300,7 @@
          ]
       }
    ],
-   "values":{  
+   "values":{
       "panelcolor": "#FFF",
       "panelbackground": "#575757",
       "timecolor": "#4992CD",

@@ -3,7 +3,7 @@
    "configurationSettings":[
       {
          "category":"<b>Configure Maptiks</b>",
-         "fields":[  
+         "fields":[
            {
              "type": "string",
              "fieldName": "maptiks_trackcode",
@@ -18,7 +18,7 @@
            },
            {
              "type": "paragraph",
-             "value": "If you require a tracking code, you can get one <a target=\"_blank\" href=\"https://analytics.maptiks.com/login/arcgis/?next=/\">here.</a>"
+             "value": "If you require a tracking code, you can get one <a target=\"_blank\" href=\"https://analytics.maptiks.com/\">here.</a>"
            }
          ]
       },
@@ -51,7 +51,7 @@
             },
             {
                "type":"layerAndFieldSelector",
-               "fields":[ 
+               "fields":[
                     {
                         "supportedTypes": ["esriFieldTypeSmallInteger", "esriFieldTypeInteger", "esriFieldTypeSingle", "esriFieldTypeDouble", "esriFieldTypeString"],
                         "multipleSelection": false,
@@ -90,12 +90,12 @@
                         "label": "Maximum fields",
                         "tooltip": "List of numeric fields where the maximum value will be displayed"
 
-                    }  
+                    }
                   ],
                "layerOptions":{
                   "supportedTypes":[
                      "FeatureLayer","FeatureCollection"
-                  ],      
+                  ],
                   "geometryTypes":[
                      "esriGeometryPoint",
                      "esriGeometryLine",

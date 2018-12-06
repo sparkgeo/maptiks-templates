@@ -2,7 +2,7 @@
     "configurationSettings": [
         {
          "category":"<b>Configure Maptiks</b>",
-         "fields":[  
+         "fields":[
            {
              "type": "string",
              "fieldName": "maptiks_trackcode",
@@ -17,7 +17,7 @@
            },
            {
              "type": "paragraph",
-             "value": "If you require a tracking code, you can get one <a target=\"_blank\" href=\"https://analytics.maptiks.com/login/arcgis/?next=/\">here.</a>"
+             "value": "If you require a tracking code, you can get one <a target=\"_blank\" href=\"https://analytics.maptiks.com/\">here.</a>"
            }
          ]
       },{
@@ -101,13 +101,13 @@
                     "fieldName":"customUrlParam",
                     "type":"string",
                     "tooltip":"Custom URL param name"
-                },{  
+                },{
                     "type":"layerAndFieldSelector",
                     "fieldName":"customUrlLayer",
                     "label":"Layer to search for custom url param value",
                     "tooltip":"Url param search layer",
-                    "fields":[  
-                        {  
+                    "fields":[
+                        {
                             "multipleSelection":false,
                             "fieldName":"urlField",
                             "label":"URL param search field",
@@ -115,11 +115,11 @@
                         }
                     ],
                     "layerOptions":
-                        {  
+                        {
                             "supportedTypes":[
                                 "FeatureLayer"
                             ],
-                            "geometryTypes":[  
+                            "geometryTypes":[
                                 "esriGeometryPoint",
                                 "esriGeometryLine",
                                 "esriGeometryPolygon"

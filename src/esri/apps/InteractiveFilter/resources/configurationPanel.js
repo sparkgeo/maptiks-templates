@@ -2,7 +2,7 @@
    "configurationSettings":[
       {
          "category":"<b>Configure Maptiks</b>",
-         "fields":[  
+         "fields":[
            {
              "type": "string",
              "fieldName": "maptiks_trackcode",
@@ -17,7 +17,7 @@
            },
            {
              "type": "paragraph",
-             "value": "If you require a tracking code, you can get one <a target=\"_blank\" href=\"https://analytics.maptiks.com/login/arcgis/?next=/\">here.</a>"
+             "value": "If you require a tracking code, you can get one <a target=\"_blank\" href=\"https://analytics.maptiks.com/\">here.</a>"
            }
          ]
       },{
@@ -143,7 +143,7 @@
                "type":"paragraph",
                "value": "Enable search to allow users to find a location or data in the map. Configure the search settings to refine the experience in your app by setting the default search resource, placeholder text, etc."
             },
-            {  
+            {
                "type":"boolean",
                "fieldName":"search",
                "label":"Enable search tool"

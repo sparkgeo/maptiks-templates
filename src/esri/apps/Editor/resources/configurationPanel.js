@@ -1,8 +1,8 @@
-{  
+{
    "configurationSettings":[
       {
          "category":"<b>Configure Maptiks</b>",
-         "fields":[  
+         "fields":[
            {
              "type": "string",
              "fieldName": "maptiks_trackcode",
@@ -17,19 +17,19 @@
            },
            {
              "type": "paragraph",
-             "value": "If you require a tracking code, you can get one <a target=\"_blank\" href=\"https://analytics.maptiks.com/login/arcgis/?next=/\">here.</a>"
+             "value": "If you require a tracking code, you can get one <a target=\"_blank\" href=\"https://analytics.maptiks.com/\">here.</a>"
            }
          ]
-      },{  
+      },{
          "category":"<b>App Settings</b>",
-         "fields":[ 
+         "fields":[
             {
                "type": "appproxies"
-            }, 
-            {  
+            },
+            {
                "type":"webmap"
             },
-            {  
+            {
                "placeHolder":"Defaults to web map title",
                "label":"Title:",
                "fieldName":"title",
@@ -40,13 +40,13 @@
       },{
          "category": "Theme",
          "fields":[
-            {  
+            {
                "type":"color",
                "fieldName":"theme",
                "tooltip":"Color theme to use",
                "label":"Color Theme:"
             },
-            {  
+            {
                "type":"color",
                "fieldName":"color",
                "tooltip":"Title bar text color",
@@ -60,7 +60,7 @@
                "type":"paragraph",
                "value": "Enable search to allow users to find a location or data in the map. Configure the search settings to refine the experience in your app by setting the default search resource, placeholder text, etc."
             },
-            {  
+            {
                "type":"boolean",
                "fieldName":"search",
                "label":"Enable search tool"
@@ -71,20 +71,20 @@
             }
          ]
       },
-      {  
+      {
          "category":"Tools",
-         "fields":[  
+         "fields":[
             {
                "type":"boolean",
                "fieldName":"edittoolbar",
                "label":"Display Edit Toolbar"
             },
-           
+
             {
                "type": "paragraph",
                "value": "Enable the Locate Button to add a button to the map that allows users to identify thier current location. To track the users current location set Locate Button and Location Tracking to true."
             },
-            {  
+            {
                "type":"boolean",
                "fieldName":"locate",
                "label":"Locate Button"
@@ -93,12 +93,12 @@
                "fieldName": "locatetrack",
                "label": "Location Tracking"
             },
-            {  
+            {
                "type":"boolean",
                "fieldName":"home",
                "label":"Home Button"
             },
-            {  
+            {
                "type":"boolean",
                "fieldName":"scale",
                "label":"Scalebar"
@@ -151,7 +151,7 @@
          ]
       }
    ],
-   "values":{  
+   "values":{
       "color":"#4c4c4c",
       "theme":"#f7f8f8",
       "scale":true,

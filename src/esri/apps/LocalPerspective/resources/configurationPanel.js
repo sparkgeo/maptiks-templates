@@ -2,7 +2,7 @@
    "configurationSettings": [
    {
        "category":"<b>Configure Maptiks</b>",
-       "fields":[  
+       "fields":[
          {
            "type": "string",
            "fieldName": "maptiks_trackcode",
@@ -17,10 +17,10 @@
          },
          {
            "type": "paragraph",
-           "value": "If you require a tracking code, you can get one <a target=\"_blank\" href=\"https://analytics.maptiks.com/login/arcgis/?next=/\">here.</a>"
+           "value": "If you require a tracking code, you can get one <a target=\"_blank\" href=\"https://analytics.maptiks.com/\">here.</a>"
          }
        ]
-   }, {  
+   }, {
       "category": "<b>General</b>",
       "fields": [{
          "type": "webmap"
