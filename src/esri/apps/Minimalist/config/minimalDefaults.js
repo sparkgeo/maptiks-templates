@@ -20,7 +20,7 @@ define({
     //default web map, default app color theme and more. These values can be overwritten by template configuration settings and url parameters.
     "appid": "",
     "webmap": "24e01ef45d40423f95300ad2abc5038a",
-    "oauthappid": null, //"AFTKRmv16wj14N3z",
+    "oauthappid": "5ELG8LDjB7j7TPUr", //"AFTKRmv16wj14N3z",
     "extent": null,
     "home": false,
     "zoom": true,
@@ -57,16 +57,16 @@ define({
     "sharinghost": location.protocol + "//" + "www.arcgis.com",
     "units": null,
     //If your applcation needs to edit feature layer fields set this value to true. When false the map will
-    //be dreated with layers that are not set to editable which allows the FeatureLayer to load features optimally. 
+    //be dreated with layers that are not set to editable which allows the FeatureLayer to load features optimally.
     "editable": false,
     //Setup the app to support a custom url parameter. Use this if you want users
     //to be able to search for a string field in a layer. For example if the web map
     //has parcel data and you'd like to be able to zoom to a feature using its parcel id
-    //you could add a custom url param named parcel then users could enter 
+    //you could add a custom url param named parcel then users could enter
     //a value for that param in the url. index.html?parcel=3203
     "customUrlLayer": {
         "id": null, //id of the search layer as defined in the web map
-        "fields": [] //Name of the string field to search 
+        "fields": [] //Name of the string field to search
     },
     "customUrlParam": null, //Name of url param. For example parcels
     "helperServices": {

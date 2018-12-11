@@ -17,7 +17,7 @@ define({
       "maptiks": {
     },
     "theme": "basic", // see values in themes.js
-    "oauthappid": null,
+    "oauthappid": "5ELG8LDjB7j7TPUr",
     //Enter the url to the proxy if needed by the applcation. See the "Using the proxy page" help topic for details
     // //developers.arcgis.com/en/javascript/jshelp/ags_proxy.html
     "proxyurl": "",
