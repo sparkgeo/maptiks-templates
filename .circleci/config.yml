@@ -29,10 +29,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Envir Injection
-          command: |
-            find src -name 'index.html' -exec sed -i 's/cdn-dev.maptiks.com/cdn.maptiks.com/g' {} +
-      - run:
           name: deploy to aws
           command: |
             aws s3 sync src/esri/ s3://templates.maptiks.com/esri/ --delete
@@ -51,7 +47,7 @@ jobs:
       - run:
           name: Envir Injection
           command: |
-            find src -name 'index.html' -exec sed -i 's/cdn-dev.maptiks.com/cdn-staging.maptiks.com/g' {} +
+            find src -name 'index.html' -exec sed -i 's/cdn.maptiks.com/cdn-staging.maptiks.com/g' {} +
       - run:
           name: deploy to aws
           command: |
@@ -71,7 +67,7 @@ jobs:
       - run:
           name: Envir Injection
           command: |
-            find src -name 'index.html' -exec sed -i 's/cdn-dev.maptiks.com/cdn-dev.maptiks.com/g' {} +
+            find src -name 'index.html' -exec sed -i 's/cdn.maptiks.com/cdn-dev.maptiks.com/g' {} +
       - run:
           name: deploy to aws
           command: |
