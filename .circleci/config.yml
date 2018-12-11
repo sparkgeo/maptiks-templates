@@ -48,6 +48,7 @@ jobs:
           name: Envir Injection
           command: |
             find src -name 'index.html' -exec sed -i 's/cdn.maptiks.com/cdn-staging.maptiks.com/g' {} +
+            find src/esri/apps/Solutions -name 's2.html' -exec sed -i 's/cdn.maptiks.com/cdn-staging.maptiks.com/g' {} +
       - run:
           name: deploy to aws
           command: |
@@ -68,6 +69,7 @@ jobs:
           name: Envir Injection
           command: |
             find src -name 'index.html' -exec sed -i 's/cdn.maptiks.com/cdn-dev.maptiks.com/g' {} +
+            find src/esri/apps/Solutions -name 's2.html' -exec sed -i 's/cdn.maptiks.com/cdn-dev.maptiks.com/g' {} +
       - run:
           name: deploy to aws
           command: |
