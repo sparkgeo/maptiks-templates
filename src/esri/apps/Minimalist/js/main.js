@@ -737,8 +737,8 @@ define(["maptiks/mapWrapper", "dojo/ready", "dojo/parser", "dojo/dom-attr", "doj
 
         var maptiksMapOptions = {
           extent: response.map.extent,
-          maptiks_trackcode: this.config.maptiks.maptiksTrackcode,
-          maptiks_id: this.config.maptiks.maptiksId
+          maptiks_trackcode: this.config.maptiks_trackcode,
+          maptiks_id: this.config.maptiks_id
         };
         mapWrapper('mapDiv', maptiksMapOptions, response.map);
 
